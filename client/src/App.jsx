@@ -29,7 +29,7 @@ const App = () => {
         { coldEmails: [], wait: [], leadSources: [] }
       );
 
-      const response = await fetch("YOUR_BACKEND_URL/workflow", {
+      const response = await fetch("http://localhost:8000/schedule", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
