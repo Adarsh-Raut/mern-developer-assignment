@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import {
   ReactFlow,
   Controls,
@@ -11,7 +11,7 @@ import {
 import "@xyflow/react/dist/style.css";
 import { AddNode, ColdEmailNode, WaitNode, LeadSourceNode } from "./FlowNodes";
 
-const StartNode = ({ data }) => {
+const StartNode = () => {
   return (
     <div className="bg-white rounded-lg shadow-lg p-4 min-w-[200px] border border-gray-200">
       <div className="flex items-center justify-center">
@@ -60,9 +60,33 @@ const initialEdges = [
   },
 ];
 
-function Flow() {
+function Flow({ onSave }) {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+
+  const handleSave = () => {
+    console.log("Nodes before saving:", nodes);
+    onSave(nodes);
+  };
+
+  const updateNodeData = useCallback(
+    (nodeId, newData) => {
+      setNodes((prevNodes) =>
+        prevNodes.map((node) =>
+          node.id === nodeId
+            ? {
+                ...node,
+                data: {
+                  ...node.data,
+                  ...newData,
+                },
+              }
+            : node
+        )
+      );
+    },
+    [setNodes]
+  );
 
   const addNode = useCallback(
     (addNodeId, nodeType) => {
@@ -75,7 +99,13 @@ function Flow() {
       let newNode = {
         id: newNodeId,
         type: nodeType,
-        position: addNode.position,
+        position: {
+          x: addNode.position.x,
+          y: addNode.position.y,
+        },
+        data: {
+          onChange: (updatedData) => updateNodeData(newNodeId, updatedData),
+        },
       };
 
       switch (nodeType) {
@@ -109,9 +139,12 @@ function Flow() {
         type: "addNode",
         position: {
           x: addNode.position.x,
-          y: addNode.position.y + 150,
+          y: addNode.position.y + 300,
         },
-        data: { label: "Add Node" },
+        data: {
+          label: "Add Node",
+          onClick: (nodeType) => addNode(newAddNodeId, nodeType),
+        },
       };
 
       const updatedEdges = edges.map((edge) => {
@@ -138,7 +171,7 @@ function Flow() {
       ]);
       setEdges(newEdges);
     },
-    [nodes, edges]
+    [nodes, edges, updateNodeData]
   );
 
   const processedNodes = nodes.map((node) => {
@@ -151,11 +184,26 @@ function Flow() {
         },
       };
     }
+    if (["coldEmail", "wait", "leadSource"].includes(node.type)) {
+      return {
+        ...node,
+        data: {
+          ...node.data,
+          onChange: (updatedData) => updateNodeData(node.id, updatedData),
+        },
+      };
+    }
     return node;
   });
 
   return (
     <div className="w-full h-screen">
+      <button
+        onClick={handleSave}
+        className="absolute top-4 right-4 z-50 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded"
+      >
+        Save Workflow
+      </button>
       <ReactFlow
         nodes={processedNodes}
         edges={edges}

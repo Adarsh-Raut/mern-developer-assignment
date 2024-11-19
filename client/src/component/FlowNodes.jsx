@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Handle, Position } from "@xyflow/react";
 import { X, Plus, Mail, Clock, User } from "lucide-react";
 
-// NodeSelectionMenu Component remains the same
 export const NodeSelectionMenu = ({ onSelect, onClose, position }) => {
   const nodeTypes = [
     { id: "coldEmail", label: "Cold Email", icon: Mail },
@@ -39,12 +38,11 @@ export const NodeSelectionMenu = ({ onSelect, onClose, position }) => {
 export const ColdEmailNode = ({ data, id }) => {
   const [email, setEmail] = useState(data.email || "");
 
-  // Update parent data when email changes
   useEffect(() => {
     if (data.onChange) {
-      data.onChange({ ...data, email });
+      data.onChange({ email });
     }
-  }, [email]);
+  }, [email, data.onChange]);
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-4 min-w-[250px] border border-blue-200">
@@ -80,10 +78,16 @@ export const ColdEmailNode = ({ data, id }) => {
   );
 };
 
-// Wait Node remains the same since it's working properly
+// Wait Node
 export const WaitNode = ({ data, id }) => {
   const [waitTime, setWaitTime] = useState(data.waitTime || "1");
   const [timeUnit, setTimeUnit] = useState(data.timeUnit || "hours");
+
+  useEffect(() => {
+    if (data.onChange) {
+      data.onChange({ waitTime, timeUnit });
+    }
+  }, [waitTime, timeUnit, data.onChange]);
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-4 min-w-[250px] border border-orange-200">
@@ -137,12 +141,11 @@ export const WaitNode = ({ data, id }) => {
 export const LeadSourceNode = ({ data, id }) => {
   const [email, setEmail] = useState(data.email || "");
 
-  // Update parent data when email changes
   useEffect(() => {
     if (data.onChange) {
-      data.onChange({ ...data, email });
+      data.onChange({ email });
     }
-  }, [email]);
+  }, [email, data.onChange]);
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-4 min-w-[250px] border border-green-200">
@@ -178,7 +181,6 @@ export const LeadSourceNode = ({ data, id }) => {
   );
 };
 
-// AddNode Component remains the same
 export const AddNode = ({ data }) => {
   const [showMenu, setShowMenu] = useState(false);
 
