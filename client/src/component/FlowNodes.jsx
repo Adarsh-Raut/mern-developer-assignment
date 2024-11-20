@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Handle, Position } from "@xyflow/react";
 import { X, Plus, Mail, Clock, User } from "lucide-react";
 
+// node selection menu
 export const NodeSelectionMenu = ({ onSelect, onClose, position }) => {
   const nodeTypes = [
     { id: "coldEmail", label: "Cold Email", icon: Mail },

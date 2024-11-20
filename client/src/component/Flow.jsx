@@ -11,6 +11,7 @@ import {
 import "@xyflow/react/dist/style.css";
 import { AddNode, ColdEmailNode, WaitNode, LeadSourceNode } from "./FlowNodes";
 
+// start node
 const StartNode = () => {
   return (
     <div className="bg-white rounded-lg shadow-lg p-4 min-w-[200px] border border-gray-200">
@@ -212,9 +213,8 @@ function Flow({ onSave }) {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         nodeTypes={nodeTypes}
-        // fitView
       >
-        <Background />
+        <Background variant="none" bgColor="#FFFFFF" />
         <Controls />
       </ReactFlow>
     </div>

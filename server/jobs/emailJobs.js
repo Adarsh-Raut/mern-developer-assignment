@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-
+// smtp ethereal demo account setup
 const transporter = nodemailer.createTransport({
   host: 'smtp.ethereal.email',
   port: 587,
@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-
+// function to send emails
  const emailJobs = (agenda) => {
   agenda.define('send email', async (job) => {
     const { email, subject, body } = job.attrs.data;
