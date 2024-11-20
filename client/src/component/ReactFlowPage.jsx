@@ -3,7 +3,7 @@ import Flow from "./Flow";
 import "@xyflow/react/dist/style.css";
 
 const ReactFlowPage = () => {
-  const BASE_URL = "http://localhost:8000";
+  const BASE_URL = "https://mern-developer-assignment.onrender.com";
 
   const handleSave = async (nodes) => {
     try {
