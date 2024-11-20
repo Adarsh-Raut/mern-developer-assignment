@@ -3,6 +3,7 @@ import "@xyflow/react/dist/style.css";
 import Flow from "./component/Flow";
 
 const App = () => {
+  const BASE_URL = "http://localhost:8000";
   const handleSave = async (nodes) => {
     try {
       const workflowData = nodes.reduce(
@@ -10,7 +11,7 @@ const App = () => {
           if (node.type === "coldEmail") {
             acc.coldEmails.push({
               id: node.id,
-              email: node.data.email,
+              template: node.data.template,
             });
           } else if (node.type === "wait") {
             acc.wait.push({
@@ -21,7 +22,7 @@ const App = () => {
           } else if (node.type === "leadSource") {
             acc.leadSources.push({
               id: node.id,
-              email: node.data.email,
+              template: node.data.template,
             });
           }
           return acc;
@@ -29,7 +30,7 @@ const App = () => {
         { coldEmails: [], wait: [], leadSources: [] }
       );
 
-      const response = await fetch("http://localhost:8000/schedule", {
+      const response = await fetch(`${BASE_URL}/schedule`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,6 +48,7 @@ const App = () => {
       alert("Failed to save workflow");
     }
   };
+
   return (
     <div>
       <Flow onSave={handleSave} />

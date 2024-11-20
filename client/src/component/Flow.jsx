@@ -112,7 +112,8 @@ function Flow({ onSave }) {
         case "coldEmail":
           newNode.data = {
             ...newNode.data,
-            email: "",
+
+            template: "aiAssisted",
             label: "Cold Email",
           };
           break;
@@ -127,7 +128,8 @@ function Flow({ onSave }) {
         case "leadSource":
           newNode.data = {
             ...newNode.data,
-            email: "",
+
+            template: "aiAssisted",
             label: "Lead Source",
           };
           break;
@@ -210,7 +212,7 @@ function Flow({ onSave }) {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         nodeTypes={nodeTypes}
-        fitView
+        // fitView
       >
         <Background />
         <Controls />

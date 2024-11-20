@@ -36,13 +36,13 @@ export const NodeSelectionMenu = ({ onSelect, onClose, position }) => {
 
 // Cold Email Node
 export const ColdEmailNode = ({ data, id }) => {
-  const [email, setEmail] = useState(data.email || "");
+  const [template, setTemplate] = useState(data.template || "aiAssisted");
 
   useEffect(() => {
     if (data.onChange) {
-      data.onChange({ email });
+      data.onChange({ template });
     }
-  }, [email, data.onChange]);
+  }, [template, data.onChange]);
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-4 min-w-[250px] border border-blue-200">
@@ -53,15 +53,19 @@ export const ColdEmailNode = ({ data, id }) => {
         </div>
       </div>
 
-      <div className="space-y-2">
-        <label className="text-sm text-gray-600">Email Address</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter email address"
-          className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+      <div className="space-y-4">
+        <div>
+          <label className="text-sm text-gray-600">Template</label>
+          <select
+            value={template}
+            onChange={(e) => setTemplate(e.target.value)}
+            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500 mt-1"
+          >
+            <option value="aiAssisted">AI Assisted</option>
+            <option value="followUpAi">Follow Up AI Assisted</option>
+            <option value="greetingsAi">Greetings AI Assisted</option>
+          </select>
+        </div>
       </div>
 
       <Handle
@@ -139,13 +143,13 @@ export const WaitNode = ({ data, id }) => {
 
 // Lead Source Node
 export const LeadSourceNode = ({ data, id }) => {
-  const [email, setEmail] = useState(data.email || "");
+  const [template, setTemplate] = useState(data.template || "aiAssisted");
 
   useEffect(() => {
     if (data.onChange) {
-      data.onChange({ email });
+      data.onChange({ template });
     }
-  }, [email, data.onChange]);
+  }, [template, data.onChange]);
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-4 min-w-[250px] border border-green-200">
@@ -156,15 +160,19 @@ export const LeadSourceNode = ({ data, id }) => {
         </div>
       </div>
 
-      <div className="space-y-2">
-        <label className="text-sm text-gray-600">Resend Email</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter resend email"
-          className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500"
-        />
+      <div className="space-y-4">
+        <div>
+          <label className="text-sm text-gray-600">Template</label>
+          <select
+            value={template}
+            onChange={(e) => setTemplate(e.target.value)}
+            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-green-500 mt-1"
+          >
+            <option value="aiAssisted">AI Assisted</option>
+            <option value="followUpAi">Follow Up AI Assisted</option>
+            <option value="greetingsAi">Greetings AI Assisted</option>
+          </select>
+        </div>
       </div>
 
       <Handle
