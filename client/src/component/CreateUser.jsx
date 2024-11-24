@@ -6,6 +6,7 @@ const CreateUser = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const BASE_URL = "https://mern-developer-assignment.onrender.com";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +23,7 @@ const CreateUser = () => {
       return;
     }
 
-    const response = await fetch("http://localhost:8000/register", {
+    const response = await fetch(`${BASE_URL}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
